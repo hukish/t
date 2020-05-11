@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      {% extends 'base.html'%}
+      {% import 'macros.html' as macro%}
+  
+  {% block styles%}
+  {{ super() }}
+  <link href="https://fonts.googleapis.com/css?family=Advent+Pro&display=swap" rel="stylesheet">
+  {% endblock %}
+  {% block content %}
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body style="overflow-x: hidden">
+  <main style="font-family: 'Advent Pro'">
+  <div style="display: flex;justify-content: center; margin-top: 3rem" class="text-center">
+  <h2 style="text-align: center;font-family: 'Luckiest Guy', cursive; letter-spacing: 4px; font-size: 3.5em; font-weight: bolder">W<span style="color: crimson">E</span>LCOM<span style="color: crimson">E</span></h2>
+</div>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      {% for item in quote%}
+      <h3 class="text-center">" {{item.quote}} "</h3>
+      <p class="text-center"> ~ {{item.author}}</p>
+      {% endfor %}
+    </div>
+
+  </div>
+     
+    <div style="font-family:'Advent Pro';font-size: larger" class="container">
+       
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+        {% if current_user.is_authenticated%}
+
+          
+          <h2><u>Welcome {{ current_user.username }}</u></h2>
+        
+
+            <h2>"Always remember that you are absolutely unique. Just like everyone else." -Margaret Mead</h2>
+
+        {% else %}
+
+        {%endif%}
+                {%if current_user.is_authenticated%}
+                <h4 class="text-left"><a class="btn btn-success" href="{{url_for('main.new_blog')}}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Post Blog</a></h4>
+                {% endif %}
+          {{ macro.displayCategoryList(categories) }}
+        </div>
+        <div class="wells" s>
+        {{ macro.displayBlogs(blogs) }}
+
+        </div>
+<!-- {% endblock %} -->
+    </div>
+</div>
+</main>
+</body>
+</html>
